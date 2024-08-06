@@ -11,7 +11,7 @@ from jwt.exceptions import InvalidTokenError
 from typing import Annotated
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from models.users import User
+from users.model import User
 from config import app_config
 import jwt
 

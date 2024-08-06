@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from endpoints import endpoint_manager
-from routers import router as routers
+from router import router as routers
 from logger import logger
 
 DESCRIPTION = """
