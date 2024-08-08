@@ -54,6 +54,15 @@ make run
 
 ---
 
+## Question for myself 
+1. What generator run ? async generator run ?
+2. what is block in asyncio ? bestpractice with even-loop ?
+3. Should we create connection pool like session in endpoints ?
+4. Why something openAPI docs not works ?
+
+
+
+
 ## Docs to support about Python, Async, Project 
 1. Why I not used env file 
 2. Python AsyncIO, a dificult things !
