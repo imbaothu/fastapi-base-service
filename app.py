@@ -17,10 +17,8 @@ It supports: ...
 async def lifespan(app: FastAPI):
     """Initialize application services."""
     await endpoint_manager.connect()
-    logger.info("Connected to database")
     yield
     await endpoint_manager.disconnect()
-    logger.info("Disconnected from database")
 
 app = FastAPI(
     title="My Server",

@@ -8,9 +8,9 @@ from aiohttp import (
     ClientSession,
     ClientTimeout,
 )
+from aiohttp_sse_client import client as sse_client
+
 from logger import logger
-from fastapi import WebSocket
-import json
 
 
 TIMEOUT = 1.0
@@ -29,19 +29,18 @@ class SSEClient:
         self.server = config["uri"]
 
     async def connect(self):
-        self.session = ClientSession(self.server, timeout=ClientTimeout(TIMEOUT))
+        self.session = ClientSession(self.server, timeout=ClientTimeout(1))
 
     async def disconnect(self):
         if self.session:
             await self.session.close()
 
-    # recevice stream messages from sse server 
     async def stream(self, path:str):
-        async with self.session.get(path) as response:
-            async for line in response.content:
-                if line:
-                    data = {
-                        'data' : json.dumps(line),
-                    }
-                    yield data
-
+        async with self.session as session:
+            async with session.get(path) as response:
+                async for line in response.content:
+                    if line:
+                        data = line.decode('utf-8').strip()
+                        # Modify the data here
+                        modified_data = f"Modified: {data}"
+                        yield f"data: {modified_data}\n\n"

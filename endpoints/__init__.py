@@ -23,6 +23,7 @@ class EndpointManager:
     def init_config(self, config: dict):
         self.mongo.init_config(config["mongo"])
         self.ws_client.init_config(config["ws_client"])
+        self.sse_client.init_config(config["sse_client"])
 
     async def connect(self):
         await self.mongo.connect(
@@ -32,10 +33,12 @@ class EndpointManager:
             ]
         )
         await self.ws_client.connect()
+        await self.sse_client.connect()
 
     async def disconnect(self):
         await self.mongo.disconnect()
         await self.ws_client.disconnect()
+        await self.sse_client.disconnect()
 
 
 endpoint_manager = EndpointManager()

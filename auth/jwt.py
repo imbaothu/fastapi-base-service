@@ -1,11 +1,8 @@
 """
 Jwt helper functions: create_access_token, get_current_user
-
-Follow standard : https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
 """
 
 from datetime import datetime, timedelta, timezone
-import imp
 from passlib.context import CryptContext
 from jwt.exceptions import InvalidTokenError
 from typing import Annotated
