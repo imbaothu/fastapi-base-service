@@ -10,8 +10,6 @@ from aiohttp import (
 )
 from aiohttp_sse_client import client as sse_client
 
-from logger import logger
-
 
 TIMEOUT = 1.0
 
@@ -35,12 +33,10 @@ class SSEClient:
         if self.session:
             await self.session.close()
 
-    async def stream(self, path:str):
+    async def stream(self, path: str):
         async with self.session as session:
             async with session.get(path) as response:
                 async for line in response.content:
                     if line:
-                        data = line.decode('utf-8').strip()
-                        # Modify the data here
-                        modified_data = f"Modified: {data}"
-                        yield f"data: {modified_data}\n\n"
+                        data = line.decode("utf-8").strip()
+                        yield f"data: {data}"

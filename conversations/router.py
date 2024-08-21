@@ -10,6 +10,8 @@ from fastapi.params import Depends
 from conversations.model import Conversation, Message
 from conversations.schema import ConversationInput
 from auth.jwt import oauth2_scheme, get_current_user
+from endpoints import endpoint_manager
+import json
 
 router = APIRouter()
 
@@ -34,4 +36,7 @@ async def create_conversation(
         messages=[new_mess] if new_mess is not None else [],
     )
     new_conversation = await new_conversation.create()
+
+    # produce message to kafka
+    await endpoint_manager.kafka_client.produce(my_topic="default", mess="minhdan")
     return {"message": "Message created successfully"}
